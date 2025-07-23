@@ -19,6 +19,9 @@ from torch.cuda.amp import GradScaler, autocast
 from utils.dataset_synapse import Synapse_dataset, RandomGenerator
 from utils.utils import powerset, one_hot_encoder, DiceLoss, val_single_volume
             
+torch.backends.cuda.matmul.allow_tf32 = True
+torch.backends.cudnn.allow_tf32 = True
+
 def inference(args, model, best_performance):
     db_test = Synapse_dataset(base_dir=args.volume_path, split="test_vol", list_dir=args.list_dir, nclass=args.num_classes)
     
@@ -55,7 +58,7 @@ def trainer_synapse(args, model, snapshot_path):
     def worker_init_fn(worker_id):
         random.seed(args.seed + worker_id)
 
-    trainloader = DataLoader(db_train, batch_size=batch_size, shuffle=True, num_workers=8, pin_memory=True,
+    trainloader = DataLoader(db_train, batch_size=batch_size, shuffle=True, num_workers=16, pin_memory=True,
                              worker_init_fn=worker_init_fn)
     
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -133,16 +136,18 @@ def trainer_synapse(args, model, snapshot_path):
         save_mode_path = os.path.join(snapshot_path, 'last.pth')
         torch.save(model.state_dict(), save_mode_path)
         
-        performance = inference(args, model, best_performance)
+        # 每10个epoch执行一次验证
+        if (epoch_num + 1) % 10 == 0:
+            performance = inference(args, model, best_performance)
+            
+            if(best_performance <= performance):
+                best_performance = performance
+                save_mode_path = os.path.join(snapshot_path, 'best.pth')
+                torch.save(model.state_dict(), save_mode_path)
+                logging.info("save model to {}".format(save_mode_path))
         
         save_interval = 50
 
-        if(best_performance <= performance):
-            best_performance = performance
-            save_mode_path = os.path.join(snapshot_path, 'best.pth')
-            torch.save(model.state_dict(), save_mode_path)
-            logging.info("save model to {}".format(save_mode_path))
-            
         if (epoch_num + 1) % save_interval == 0:
             save_mode_path = os.path.join(snapshot_path, 'epoch_' + str(epoch_num) + '.pth')
             torch.save(model.state_dict(), save_mode_path)

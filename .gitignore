@@ -1,0 +1,10 @@
+datasets/
+
+!datasets/preprocess.py
+
+# models
+model_pth/
+pretrained_pth/
+
+# python cache
+__pycache__/

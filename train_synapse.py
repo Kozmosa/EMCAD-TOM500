@@ -84,6 +84,13 @@ if __name__ == "__main__":
             'num_classes': args.num_classes,
             'z_spacing': 1,
         },
+        'tom500': {
+            'root_path': args.root_path,
+            'volume_path': args.volume_path,
+            'list_dir': args.list_dir,
+            'num_classes': 9,
+            'z_spacing': 1,
+        },
     }
     args.num_classes = dataset_config[dataset_name]['num_classes']
     args.root_path = dataset_config[dataset_name]['root_path']
@@ -123,5 +130,5 @@ if __name__ == "__main__":
 
     print('Model successfully created.')
     
-    trainer = {'Synapse': trainer_synapse,}
+    trainer = {'Synapse': trainer_synapse, 'tom500': trainer_synapse,}
     trainer[dataset_name](args, model, snapshot_path)
