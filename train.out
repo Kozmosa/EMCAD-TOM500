@@ -1,43 +1,383 @@
 Model pvt_v2_b2 backbone:  created, param count: 24849856
 Model EMCAD decoder:  created, param count: 1913515
 Model successfully created.
-Namespace(activation_mscb='relu6', base_lr=0.0008, batch_size=64, concatenation=False, dataset='tom500', deterministic=1, encoder='pvt_v2_b2', exp='pvt_v2_b2_EMCAD_kernel_sizes_[1, 3, 5]_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_tom500224', expansion_factor=2, img_size=224, kernel_sizes=[1, 3, 5], lgag_ks=3, list_dir='./lists/lists_Synapse', max_epochs=300, max_iterations=50000, n_gpu=1, no_dw_parallel=False, no_pretrain=False, num_classes=9, pretrained_dir='./pretrained_pth/pvt/', root_path='/home/xuyang/code/EMCAD-TOM500/datasets/TOM500_tun/train_npz', seed=2222, supervision='mutation', volume_path='/home/xuyang/code/EMCAD-TOM500/datasets/TOM500_tun/test_vol_h5', z_spacing=1)
+Namespace(activation_mscb='relu6', base_lr=0.0008, batch_size=64, concatenation=False, dataset='tom500', deterministic=1, encoder='pvt_v2_b2', exp='pvt_v2_b2_EMCAD_kernel_sizes_[1, 3, 5]_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_tom500224', expansion_factor=2, img_size=224, kernel_sizes=[1, 3, 5], lgag_ks=3, list_dir='./lists/lists_Synapse', max_epochs=100, max_iterations=50000, n_gpu=1, no_dw_parallel=False, no_pretrain=False, num_classes=9, pretrained_dir='./pretrained_pth/pvt/', root_path='/home/xuyang/code/EMCAD-TOM500/datasets/TOM500_tun/train_npz', seed=2222, supervision='mutation', volume_path='/home/xuyang/code/EMCAD-TOM500/datasets/TOM500_tun/test_vol_h5', z_spacing=1)
 The length of train set is: 8000
-125 iterations per epoch. 37500 max iterations 
+125 iterations per epoch. 12500 max iterations 
 [[0, 1, 2, 3], [1, 2, 3], [0, 2, 3], [2, 3], [0, 1, 3], [1, 3], [0, 3], [3], [0, 1, 2], [1, 2], [0, 2], [2], [0, 1], [1], [0], []]
-iteration 50, epoch 0 : loss : 5.677261, lr: 0.000800
-iteration 100, epoch 0 : loss : 3.970649, lr: 0.000800
-iteration 125, epoch 0 : loss : 3.547315, lr: 0.000800
+iteration 50, epoch 0 : loss : 5.753381, lr: 0.000800
+iteration 100, epoch 0 : loss : 3.900187, lr: 0.000800
+iteration 125, epoch 0 : loss : 3.487165, lr: 0.000800
+iteration 150, epoch 1 : loss : 3.130602, lr: 0.000800
+iteration 200, epoch 1 : loss : 2.801831, lr: 0.000800
+iteration 250, epoch 1 : loss : 2.632169, lr: 0.000800
+iteration 250, epoch 1 : loss : 2.632169, lr: 0.000800
+iteration 300, epoch 2 : loss : 2.841806, lr: 0.000800
+iteration 350, epoch 2 : loss : 2.723282, lr: 0.000800
+iteration 375, epoch 2 : loss : 2.822439, lr: 0.000800
+iteration 400, epoch 3 : loss : 2.714791, lr: 0.000800
+iteration 450, epoch 3 : loss : 2.756390, lr: 0.000800
+iteration 500, epoch 3 : loss : 2.878576, lr: 0.000800
+iteration 500, epoch 3 : loss : 2.878576, lr: 0.000800
+iteration 550, epoch 4 : loss : 2.669241, lr: 0.000800
+iteration 600, epoch 4 : loss : 2.427822, lr: 0.000800
+iteration 625, epoch 4 : loss : 2.527126, lr: 0.000800
+iteration 650, epoch 5 : loss : 2.061475, lr: 0.000800
+iteration 700, epoch 5 : loss : 2.425400, lr: 0.000800
+iteration 750, epoch 5 : loss : 2.571940, lr: 0.000800
+iteration 750, epoch 5 : loss : 2.571940, lr: 0.000800
+iteration 800, epoch 6 : loss : 2.398060, lr: 0.000800
+iteration 850, epoch 6 : loss : 2.367594, lr: 0.000800
+iteration 875, epoch 6 : loss : 2.498386, lr: 0.000800
+iteration 900, epoch 7 : loss : 2.660370, lr: 0.000800
+iteration 950, epoch 7 : loss : 2.289763, lr: 0.000800
+iteration 1000, epoch 7 : loss : 2.524582, lr: 0.000800
+iteration 1000, epoch 7 : loss : 2.524582, lr: 0.000800
+iteration 1050, epoch 8 : loss : 2.457042, lr: 0.000800
+iteration 1100, epoch 8 : loss : 2.259829, lr: 0.000800
+iteration 1125, epoch 8 : loss : 2.304204, lr: 0.000800
+iteration 1150, epoch 9 : loss : 2.048249, lr: 0.000800
+iteration 1200, epoch 9 : loss : 1.991245, lr: 0.000800
+iteration 1250, epoch 9 : loss : 2.334967, lr: 0.000800
+iteration 1250, epoch 9 : loss : 2.334967, lr: 0.000800
 100 test iterations per epoch
-Testing performance in val model: mean_dice : 0.011210, best_dice : 0.000000
-save model to model_pth/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_tom500224/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_pretrain_bs64_lr0.0008_224_s2222/best.pth
-iteration 150, epoch 1 : loss : 10.121828, lr: 0.000800
-iteration 200, epoch 1 : loss : 8.629639, lr: 0.000800
-iteration 250, epoch 1 : loss : 7.892800, lr: 0.000800
-iteration 250, epoch 1 : loss : 7.892800, lr: 0.000800
+Testing performance in val model: mean_dice : 0.000000, best_dice : 0.000000
+save model to model_pth/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_tom500224/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_pretrain_epo100_bs64_lr0.0008_224_s2222/best.pth
+iteration 1300, epoch 10 : loss : 2.987336, lr: 0.000800
+iteration 1350, epoch 10 : loss : 2.542143, lr: 0.000800
+iteration 1375, epoch 10 : loss : 2.160008, lr: 0.000800
+iteration 1400, epoch 11 : loss : 2.132622, lr: 0.000800
+iteration 1450, epoch 11 : loss : 2.284215, lr: 0.000800
+iteration 1500, epoch 11 : loss : 2.358669, lr: 0.000800
+iteration 1500, epoch 11 : loss : 2.358669, lr: 0.000800
+iteration 1550, epoch 12 : loss : 2.114006, lr: 0.000800
+iteration 1600, epoch 12 : loss : 2.129801, lr: 0.000800
+iteration 1625, epoch 12 : loss : 2.824487, lr: 0.000800
+iteration 1650, epoch 13 : loss : 2.126428, lr: 0.000800
+iteration 1700, epoch 13 : loss : 1.853212, lr: 0.000800
+iteration 1750, epoch 13 : loss : 2.097229, lr: 0.000800
+iteration 1750, epoch 13 : loss : 2.097229, lr: 0.000800
+iteration 1800, epoch 14 : loss : 2.067696, lr: 0.000800
+iteration 1850, epoch 14 : loss : 2.197453, lr: 0.000800
+iteration 1875, epoch 14 : loss : 2.427597, lr: 0.000800
+iteration 1900, epoch 15 : loss : 1.750852, lr: 0.000800
+iteration 1950, epoch 15 : loss : 2.114954, lr: 0.000800
+iteration 2000, epoch 15 : loss : 2.402278, lr: 0.000800
+iteration 2000, epoch 15 : loss : 2.402278, lr: 0.000800
+iteration 2050, epoch 16 : loss : 2.064417, lr: 0.000800
+iteration 2100, epoch 16 : loss : 2.066356, lr: 0.000800
+iteration 2125, epoch 16 : loss : 2.230931, lr: 0.000800
+iteration 2150, epoch 17 : loss : 1.941060, lr: 0.000800
+iteration 2200, epoch 17 : loss : 1.962047, lr: 0.000800
+iteration 2250, epoch 17 : loss : 2.141234, lr: 0.000800
+iteration 2250, epoch 17 : loss : 2.141234, lr: 0.000800
+iteration 2300, epoch 18 : loss : 1.913584, lr: 0.000800
+iteration 2350, epoch 18 : loss : 2.042983, lr: 0.000800
+iteration 2375, epoch 18 : loss : 1.907125, lr: 0.000800
+iteration 2400, epoch 19 : loss : 1.802458, lr: 0.000800
+iteration 2450, epoch 19 : loss : 1.857565, lr: 0.000800
+iteration 2500, epoch 19 : loss : 1.880417, lr: 0.000800
+iteration 2500, epoch 19 : loss : 1.880417, lr: 0.000800
 100 test iterations per epoch
-Testing performance in val model: mean_dice : 0.026383, best_dice : 0.011210
-save model to model_pth/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_tom500224/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_pretrain_bs64_lr0.0008_224_s2222/best.pth
-iteration 300, epoch 2 : loss : 6.765337, lr: 0.000800
-iteration 350, epoch 2 : loss : 6.411152, lr: 0.000800
-iteration 375, epoch 2 : loss : 5.251063, lr: 0.000800
+Testing performance in val model: mean_dice : 0.000004, best_dice : 0.000000
+save model to model_pth/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_tom500224/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_pretrain_epo100_bs64_lr0.0008_224_s2222/best.pth
+iteration 2550, epoch 20 : loss : 1.766320, lr: 0.000800
+iteration 2600, epoch 20 : loss : 1.866975, lr: 0.000800
+iteration 2625, epoch 20 : loss : 1.987386, lr: 0.000800
+iteration 2650, epoch 21 : loss : 1.856477, lr: 0.000800
+iteration 2700, epoch 21 : loss : 1.841312, lr: 0.000800
+iteration 2750, epoch 21 : loss : 1.871589, lr: 0.000800
+iteration 2750, epoch 21 : loss : 1.871589, lr: 0.000800
+iteration 2800, epoch 22 : loss : 1.992387, lr: 0.000800
+iteration 2850, epoch 22 : loss : 2.171322, lr: 0.000800
+iteration 2875, epoch 22 : loss : 2.008116, lr: 0.000800
+iteration 2900, epoch 23 : loss : 1.568691, lr: 0.000800
+iteration 2950, epoch 23 : loss : 1.822939, lr: 0.000800
+iteration 3000, epoch 23 : loss : 1.703814, lr: 0.000800
+iteration 3000, epoch 23 : loss : 1.703814, lr: 0.000800
+iteration 3050, epoch 24 : loss : 1.923050, lr: 0.000800
+iteration 3100, epoch 24 : loss : 1.898835, lr: 0.000800
+iteration 3125, epoch 24 : loss : 1.746922, lr: 0.000800
+iteration 3150, epoch 25 : loss : 1.825052, lr: 0.000800
+iteration 3200, epoch 25 : loss : 1.931323, lr: 0.000800
+iteration 3250, epoch 25 : loss : 1.890524, lr: 0.000800
+iteration 3250, epoch 25 : loss : 1.890524, lr: 0.000800
+iteration 3300, epoch 26 : loss : 1.877868, lr: 0.000800
+iteration 3350, epoch 26 : loss : 1.684543, lr: 0.000800
+iteration 3375, epoch 26 : loss : 1.647038, lr: 0.000800
+iteration 3400, epoch 27 : loss : 1.825879, lr: 0.000800
+iteration 3450, epoch 27 : loss : 1.688031, lr: 0.000800
+iteration 3500, epoch 27 : loss : 1.853650, lr: 0.000800
+iteration 3500, epoch 27 : loss : 1.853650, lr: 0.000800
+iteration 3550, epoch 28 : loss : 1.870748, lr: 0.000800
+iteration 3600, epoch 28 : loss : 1.701245, lr: 0.000800
+iteration 3625, epoch 28 : loss : 1.848726, lr: 0.000800
+iteration 3650, epoch 29 : loss : 1.523558, lr: 0.000800
+iteration 3700, epoch 29 : loss : 1.817613, lr: 0.000800
+iteration 3750, epoch 29 : loss : 1.614039, lr: 0.000800
+iteration 3750, epoch 29 : loss : 1.614039, lr: 0.000800
 100 test iterations per epoch
-Testing performance in val model: mean_dice : 0.039942, best_dice : 0.026383
-save model to model_pth/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_tom500224/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_pretrain_bs64_lr0.0008_224_s2222/best.pth
-iteration 400, epoch 3 : loss : 5.277265, lr: 0.000800
-iteration 450, epoch 3 : loss : 4.875748, lr: 0.000800
-iteration 500, epoch 3 : loss : 5.319884, lr: 0.000800
-iteration 500, epoch 3 : loss : 5.319884, lr: 0.000800
+Testing performance in val model: mean_dice : 0.002702, best_dice : 0.000004
+save model to model_pth/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_tom500224/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_pretrain_epo100_bs64_lr0.0008_224_s2222/best.pth
+iteration 3800, epoch 30 : loss : 1.789784, lr: 0.000800
+iteration 3850, epoch 30 : loss : 1.673034, lr: 0.000800
+iteration 3875, epoch 30 : loss : 1.667770, lr: 0.000800
+iteration 3900, epoch 31 : loss : 1.576870, lr: 0.000800
+iteration 3950, epoch 31 : loss : 1.718566, lr: 0.000800
+iteration 4000, epoch 31 : loss : 1.999040, lr: 0.000800
+iteration 4000, epoch 31 : loss : 1.999040, lr: 0.000800
+iteration 4050, epoch 32 : loss : 1.905776, lr: 0.000800
+iteration 4100, epoch 32 : loss : 1.711575, lr: 0.000800
+iteration 4125, epoch 32 : loss : 1.698816, lr: 0.000800
+iteration 4150, epoch 33 : loss : 1.806291, lr: 0.000800
+iteration 4200, epoch 33 : loss : 1.768123, lr: 0.000800
+iteration 4250, epoch 33 : loss : 1.678898, lr: 0.000800
+iteration 4250, epoch 33 : loss : 1.678898, lr: 0.000800
+iteration 4300, epoch 34 : loss : 1.655497, lr: 0.000800
+iteration 4350, epoch 34 : loss : 1.813249, lr: 0.000800
+iteration 4375, epoch 34 : loss : 1.830774, lr: 0.000800
+iteration 4400, epoch 35 : loss : 1.640295, lr: 0.000800
+iteration 4450, epoch 35 : loss : 1.604458, lr: 0.000800
+iteration 4500, epoch 35 : loss : 1.952606, lr: 0.000800
+iteration 4500, epoch 35 : loss : 1.952606, lr: 0.000800
+iteration 4550, epoch 36 : loss : 1.973897, lr: 0.000800
+iteration 4600, epoch 36 : loss : 1.959005, lr: 0.000800
+iteration 4625, epoch 36 : loss : 1.813713, lr: 0.000800
+iteration 4650, epoch 37 : loss : 1.760652, lr: 0.000800
+iteration 4700, epoch 37 : loss : 1.572633, lr: 0.000800
+iteration 4750, epoch 37 : loss : 1.857763, lr: 0.000800
+iteration 4750, epoch 37 : loss : 1.857763, lr: 0.000800
+iteration 4800, epoch 38 : loss : 1.685391, lr: 0.000800
+iteration 4850, epoch 38 : loss : 1.639531, lr: 0.000800
+iteration 4875, epoch 38 : loss : 1.916935, lr: 0.000800
+iteration 4900, epoch 39 : loss : 1.531114, lr: 0.000800
+iteration 4950, epoch 39 : loss : 1.675672, lr: 0.000800
+iteration 5000, epoch 39 : loss : 1.570009, lr: 0.000800
+iteration 5000, epoch 39 : loss : 1.570009, lr: 0.000800
 100 test iterations per epoch
-Testing performance in val model: mean_dice : 0.043698, best_dice : 0.039942
-save model to model_pth/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_tom500224/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_pretrain_bs64_lr0.0008_224_s2222/best.pth
-iteration 550, epoch 4 : loss : 4.918021, lr: 0.000800
-iteration 600, epoch 4 : loss : 4.053910, lr: 0.000800
-iteration 625, epoch 4 : loss : 4.754893, lr: 0.000800
+Testing performance in val model: mean_dice : 0.000000, best_dice : 0.002702
+iteration 5050, epoch 40 : loss : 1.800592, lr: 0.000800
+iteration 5100, epoch 40 : loss : 1.849812, lr: 0.000800
+iteration 5125, epoch 40 : loss : 1.605333, lr: 0.000800
+iteration 5150, epoch 41 : loss : 1.645779, lr: 0.000800
+iteration 5200, epoch 41 : loss : 1.880620, lr: 0.000800
+iteration 5250, epoch 41 : loss : 1.920786, lr: 0.000800
+iteration 5250, epoch 41 : loss : 1.920786, lr: 0.000800
+iteration 5300, epoch 42 : loss : 1.607042, lr: 0.000800
+iteration 5350, epoch 42 : loss : 1.875409, lr: 0.000800
+iteration 5375, epoch 42 : loss : 1.578418, lr: 0.000800
+iteration 5400, epoch 43 : loss : 1.719485, lr: 0.000800
+iteration 5450, epoch 43 : loss : 1.589255, lr: 0.000800
+iteration 5500, epoch 43 : loss : 1.800698, lr: 0.000800
+iteration 5500, epoch 43 : loss : 1.800698, lr: 0.000800
+iteration 5550, epoch 44 : loss : 1.656136, lr: 0.000800
+iteration 5600, epoch 44 : loss : 1.599473, lr: 0.000800
+iteration 5625, epoch 44 : loss : 1.707123, lr: 0.000800
+iteration 5650, epoch 45 : loss : 1.626130, lr: 0.000800
+iteration 5700, epoch 45 : loss : 1.571904, lr: 0.000800
+iteration 5750, epoch 45 : loss : 1.593878, lr: 0.000800
+iteration 5750, epoch 45 : loss : 1.593878, lr: 0.000800
+iteration 5800, epoch 46 : loss : 1.713123, lr: 0.000800
+iteration 5850, epoch 46 : loss : 1.939770, lr: 0.000800
+iteration 5875, epoch 46 : loss : 1.760827, lr: 0.000800
+iteration 5900, epoch 47 : loss : 1.585495, lr: 0.000800
+iteration 5950, epoch 47 : loss : 1.672973, lr: 0.000800
+iteration 6000, epoch 47 : loss : 1.521059, lr: 0.000800
+iteration 6000, epoch 47 : loss : 1.521059, lr: 0.000800
+iteration 6050, epoch 48 : loss : 1.735390, lr: 0.000800
+iteration 6100, epoch 48 : loss : 1.773496, lr: 0.000800
+iteration 6125, epoch 48 : loss : 1.614797, lr: 0.000800
+iteration 6150, epoch 49 : loss : 1.435300, lr: 0.000800
+iteration 6200, epoch 49 : loss : 1.493888, lr: 0.000800
+iteration 6250, epoch 49 : loss : 1.662929, lr: 0.000800
+iteration 6250, epoch 49 : loss : 1.662929, lr: 0.000800
 100 test iterations per epoch
-Testing performance in val model: mean_dice : 0.038116, best_dice : 0.043698
-iteration 650, epoch 5 : loss : 4.439873, lr: 0.000800
-iteration 700, epoch 5 : loss : 3.254883, lr: 0.000800
-iteration 750, epoch 5 : loss : 3.131144, lr: 0.000800
-iteration 750, epoch 5 : loss : 3.131144, lr: 0.000800
+Testing performance in val model: mean_dice : 0.000455, best_dice : 0.002702
+save model to model_pth/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_tom500224/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_pretrain_epo100_bs64_lr0.0008_224_s2222/epoch_49.pth
+iteration 6300, epoch 50 : loss : 1.951603, lr: 0.000800
+iteration 6350, epoch 50 : loss : 1.612496, lr: 0.000800
+iteration 6375, epoch 50 : loss : 1.644710, lr: 0.000800
+iteration 6400, epoch 51 : loss : 1.691136, lr: 0.000800
+iteration 6450, epoch 51 : loss : 1.691947, lr: 0.000800
+iteration 6500, epoch 51 : loss : 1.645265, lr: 0.000800
+iteration 6500, epoch 51 : loss : 1.645265, lr: 0.000800
+iteration 6550, epoch 52 : loss : 1.902017, lr: 0.000800
+iteration 6600, epoch 52 : loss : 1.594594, lr: 0.000800
+iteration 6625, epoch 52 : loss : 1.516962, lr: 0.000800
+iteration 6650, epoch 53 : loss : 1.794549, lr: 0.000800
+iteration 6700, epoch 53 : loss : 1.411241, lr: 0.000800
+iteration 6750, epoch 53 : loss : 1.597575, lr: 0.000800
+iteration 6750, epoch 53 : loss : 1.597575, lr: 0.000800
+iteration 6800, epoch 54 : loss : 1.690613, lr: 0.000800
+iteration 6850, epoch 54 : loss : 1.585012, lr: 0.000800
+iteration 6875, epoch 54 : loss : 1.728746, lr: 0.000800
+iteration 6900, epoch 55 : loss : 1.631200, lr: 0.000800
+iteration 6950, epoch 55 : loss : 1.679343, lr: 0.000800
+iteration 7000, epoch 55 : loss : 1.553344, lr: 0.000800
+iteration 7000, epoch 55 : loss : 1.553344, lr: 0.000800
+iteration 7050, epoch 56 : loss : 1.748623, lr: 0.000800
+iteration 7100, epoch 56 : loss : 1.593719, lr: 0.000800
+iteration 7125, epoch 56 : loss : 1.585044, lr: 0.000800
+iteration 7150, epoch 57 : loss : 1.587103, lr: 0.000800
+iteration 7200, epoch 57 : loss : 1.405054, lr: 0.000800
+iteration 7250, epoch 57 : loss : 1.620332, lr: 0.000800
+iteration 7250, epoch 57 : loss : 1.620332, lr: 0.000800
+iteration 7300, epoch 58 : loss : 1.523682, lr: 0.000800
+iteration 7350, epoch 58 : loss : 1.696123, lr: 0.000800
+iteration 7375, epoch 58 : loss : 1.666854, lr: 0.000800
+iteration 7400, epoch 59 : loss : 1.633068, lr: 0.000800
+iteration 7450, epoch 59 : loss : 1.469806, lr: 0.000800
+iteration 7500, epoch 59 : loss : 1.407844, lr: 0.000800
+iteration 7500, epoch 59 : loss : 1.407844, lr: 0.000800
 100 test iterations per epoch
+Testing performance in val model: mean_dice : 0.000186, best_dice : 0.002702
+iteration 7550, epoch 60 : loss : 1.757413, lr: 0.000800
+iteration 7600, epoch 60 : loss : 1.535019, lr: 0.000800
+iteration 7625, epoch 60 : loss : 1.428100, lr: 0.000800
+iteration 7650, epoch 61 : loss : 1.496159, lr: 0.000800
+iteration 7700, epoch 61 : loss : 1.449413, lr: 0.000800
+iteration 7750, epoch 61 : loss : 1.415772, lr: 0.000800
+iteration 7750, epoch 61 : loss : 1.415772, lr: 0.000800
+iteration 7800, epoch 62 : loss : 1.435357, lr: 0.000800
+iteration 7850, epoch 62 : loss : 1.440275, lr: 0.000800
+iteration 7875, epoch 62 : loss : 1.754220, lr: 0.000800
+iteration 7900, epoch 63 : loss : 1.402924, lr: 0.000800
+iteration 7950, epoch 63 : loss : 1.629437, lr: 0.000800
+iteration 8000, epoch 63 : loss : 1.468004, lr: 0.000800
+iteration 8000, epoch 63 : loss : 1.468004, lr: 0.000800
+iteration 8050, epoch 64 : loss : 1.749949, lr: 0.000800
+iteration 8100, epoch 64 : loss : 1.472101, lr: 0.000800
+iteration 8125, epoch 64 : loss : 1.585370, lr: 0.000800
+iteration 8150, epoch 65 : loss : 1.719633, lr: 0.000800
+iteration 8200, epoch 65 : loss : 1.510413, lr: 0.000800
+iteration 8250, epoch 65 : loss : 1.425652, lr: 0.000800
+iteration 8250, epoch 65 : loss : 1.425652, lr: 0.000800
+iteration 8300, epoch 66 : loss : 1.594194, lr: 0.000800
+iteration 8350, epoch 66 : loss : 1.475055, lr: 0.000800
+iteration 8375, epoch 66 : loss : 1.460831, lr: 0.000800
+iteration 8400, epoch 67 : loss : 1.568295, lr: 0.000800
+iteration 8450, epoch 67 : loss : 1.605343, lr: 0.000800
+iteration 8500, epoch 67 : loss : 1.623992, lr: 0.000800
+iteration 8500, epoch 67 : loss : 1.623992, lr: 0.000800
+iteration 8550, epoch 68 : loss : 1.452198, lr: 0.000800
+iteration 8600, epoch 68 : loss : 1.741856, lr: 0.000800
+iteration 8625, epoch 68 : loss : 1.614806, lr: 0.000800
+iteration 8650, epoch 69 : loss : 1.545319, lr: 0.000800
+iteration 8700, epoch 69 : loss : 1.612443, lr: 0.000800
+iteration 8750, epoch 69 : loss : 1.505938, lr: 0.000800
+iteration 8750, epoch 69 : loss : 1.505938, lr: 0.000800
+100 test iterations per epoch
+Testing performance in val model: mean_dice : 0.000317, best_dice : 0.002702
+iteration 8800, epoch 70 : loss : 1.602396, lr: 0.000800
+iteration 8850, epoch 70 : loss : 1.560118, lr: 0.000800
+iteration 8875, epoch 70 : loss : 1.701427, lr: 0.000800
+iteration 8900, epoch 71 : loss : 1.479508, lr: 0.000800
+iteration 8950, epoch 71 : loss : 1.512960, lr: 0.000800
+iteration 9000, epoch 71 : loss : 1.422613, lr: 0.000800
+iteration 9000, epoch 71 : loss : 1.422613, lr: 0.000800
+iteration 9050, epoch 72 : loss : 1.550981, lr: 0.000800
+iteration 9100, epoch 72 : loss : 1.494713, lr: 0.000800
+iteration 9125, epoch 72 : loss : 1.675078, lr: 0.000800
+iteration 9150, epoch 73 : loss : 1.442558, lr: 0.000800
+iteration 9200, epoch 73 : loss : 1.376022, lr: 0.000800
+iteration 9250, epoch 73 : loss : 1.593228, lr: 0.000800
+iteration 9250, epoch 73 : loss : 1.593228, lr: 0.000800
+iteration 9300, epoch 74 : loss : 1.543282, lr: 0.000800
+iteration 9350, epoch 74 : loss : 1.498434, lr: 0.000800
+iteration 9375, epoch 74 : loss : 1.493106, lr: 0.000800
+iteration 9400, epoch 75 : loss : 1.549500, lr: 0.000800
+iteration 9450, epoch 75 : loss : 1.581770, lr: 0.000800
+iteration 9500, epoch 75 : loss : 1.463522, lr: 0.000800
+iteration 9500, epoch 75 : loss : 1.463522, lr: 0.000800
+iteration 9550, epoch 76 : loss : 1.612763, lr: 0.000800
+iteration 9600, epoch 76 : loss : 1.419281, lr: 0.000800
+iteration 9625, epoch 76 : loss : 1.490201, lr: 0.000800
+iteration 9650, epoch 77 : loss : 1.376937, lr: 0.000800
+iteration 9700, epoch 77 : loss : 1.592504, lr: 0.000800
+iteration 9750, epoch 77 : loss : 1.652025, lr: 0.000800
+iteration 9750, epoch 77 : loss : 1.652025, lr: 0.000800
+iteration 9800, epoch 78 : loss : 1.420688, lr: 0.000800
+iteration 9850, epoch 78 : loss : 1.380287, lr: 0.000800
+iteration 9875, epoch 78 : loss : 1.487028, lr: 0.000800
+iteration 9900, epoch 79 : loss : 1.447614, lr: 0.000800
+iteration 9950, epoch 79 : loss : 1.516875, lr: 0.000800
+iteration 10000, epoch 79 : loss : 1.349406, lr: 0.000800
+iteration 10000, epoch 79 : loss : 1.349406, lr: 0.000800
+100 test iterations per epoch
+Testing performance in val model: mean_dice : 0.000506, best_dice : 0.002702
+iteration 10050, epoch 80 : loss : 1.517945, lr: 0.000800
+iteration 10100, epoch 80 : loss : 1.413153, lr: 0.000800
+iteration 10125, epoch 80 : loss : 1.466363, lr: 0.000800
+iteration 10150, epoch 81 : loss : 1.505291, lr: 0.000800
+iteration 10200, epoch 81 : loss : 1.360702, lr: 0.000800
+iteration 10250, epoch 81 : loss : 1.350369, lr: 0.000800
+iteration 10250, epoch 81 : loss : 1.350369, lr: 0.000800
+iteration 10300, epoch 82 : loss : 1.477527, lr: 0.000800
+iteration 10350, epoch 82 : loss : 1.305426, lr: 0.000800
+iteration 10375, epoch 82 : loss : 1.520905, lr: 0.000800
+iteration 10400, epoch 83 : loss : 1.388114, lr: 0.000800
+iteration 10450, epoch 83 : loss : 1.364892, lr: 0.000800
+iteration 10500, epoch 83 : loss : 1.452637, lr: 0.000800
+iteration 10500, epoch 83 : loss : 1.452637, lr: 0.000800
+iteration 10550, epoch 84 : loss : 1.336379, lr: 0.000800
+iteration 10600, epoch 84 : loss : 1.428056, lr: 0.000800
+iteration 10625, epoch 84 : loss : 1.469265, lr: 0.000800
+iteration 10650, epoch 85 : loss : 1.535626, lr: 0.000800
+iteration 10700, epoch 85 : loss : 1.375243, lr: 0.000800
+iteration 10750, epoch 85 : loss : 1.354110, lr: 0.000800
+iteration 10750, epoch 85 : loss : 1.354110, lr: 0.000800
+iteration 10800, epoch 86 : loss : 1.414733, lr: 0.000800
+iteration 10850, epoch 86 : loss : 1.369733, lr: 0.000800
+iteration 10875, epoch 86 : loss : 1.471755, lr: 0.000800
+iteration 10900, epoch 87 : loss : 1.246886, lr: 0.000800
+iteration 10950, epoch 87 : loss : 1.322569, lr: 0.000800
+iteration 11000, epoch 87 : loss : 1.348265, lr: 0.000800
+iteration 11000, epoch 87 : loss : 1.348265, lr: 0.000800
+iteration 11050, epoch 88 : loss : 1.479054, lr: 0.000800
+iteration 11100, epoch 88 : loss : 1.383906, lr: 0.000800
+iteration 11125, epoch 88 : loss : 1.438017, lr: 0.000800
+iteration 11150, epoch 89 : loss : 1.546936, lr: 0.000800
+iteration 11200, epoch 89 : loss : 1.475212, lr: 0.000800
+iteration 11250, epoch 89 : loss : 1.525154, lr: 0.000800
+iteration 11250, epoch 89 : loss : 1.525154, lr: 0.000800
+100 test iterations per epoch
+Testing performance in val model: mean_dice : 0.000108, best_dice : 0.002702
+iteration 11300, epoch 90 : loss : 1.619010, lr: 0.000800
+iteration 11350, epoch 90 : loss : 1.304481, lr: 0.000800
+iteration 11375, epoch 90 : loss : 1.520822, lr: 0.000800
+iteration 11400, epoch 91 : loss : 1.526534, lr: 0.000800
+iteration 11450, epoch 91 : loss : 1.554098, lr: 0.000800
+iteration 11500, epoch 91 : loss : 1.242580, lr: 0.000800
+iteration 11500, epoch 91 : loss : 1.242580, lr: 0.000800
+iteration 11550, epoch 92 : loss : 1.428580, lr: 0.000800
+iteration 11600, epoch 92 : loss : 1.474416, lr: 0.000800
+iteration 11625, epoch 92 : loss : 1.422931, lr: 0.000800
+iteration 11650, epoch 93 : loss : 1.404599, lr: 0.000800
+iteration 11700, epoch 93 : loss : 1.416698, lr: 0.000800
+iteration 11750, epoch 93 : loss : 1.350536, lr: 0.000800
+iteration 11750, epoch 93 : loss : 1.350536, lr: 0.000800
+iteration 11800, epoch 94 : loss : 1.544978, lr: 0.000800
+iteration 11850, epoch 94 : loss : 1.505542, lr: 0.000800
+iteration 11875, epoch 94 : loss : 1.505835, lr: 0.000800
+iteration 11900, epoch 95 : loss : 1.506822, lr: 0.000800
+iteration 11950, epoch 95 : loss : 1.382779, lr: 0.000800
+iteration 12000, epoch 95 : loss : 1.410170, lr: 0.000800
+iteration 12000, epoch 95 : loss : 1.410170, lr: 0.000800
+iteration 12050, epoch 96 : loss : 1.392312, lr: 0.000800
+iteration 12100, epoch 96 : loss : 1.461005, lr: 0.000800
+iteration 12125, epoch 96 : loss : 1.405885, lr: 0.000800
+iteration 12150, epoch 97 : loss : 1.337054, lr: 0.000800
+iteration 12200, epoch 97 : loss : 1.417854, lr: 0.000800
+iteration 12250, epoch 97 : loss : 1.359097, lr: 0.000800
+iteration 12250, epoch 97 : loss : 1.359097, lr: 0.000800
+iteration 12300, epoch 98 : loss : 1.304073, lr: 0.000800
+iteration 12350, epoch 98 : loss : 1.348682, lr: 0.000800
+iteration 12375, epoch 98 : loss : 1.542280, lr: 0.000800
+iteration 12400, epoch 99 : loss : 1.337348, lr: 0.000800
+iteration 12450, epoch 99 : loss : 1.255646, lr: 0.000800
+iteration 12500, epoch 99 : loss : 1.386363, lr: 0.000800
+iteration 12500, epoch 99 : loss : 1.386363, lr: 0.000800
+100 test iterations per epoch
+Testing performance in val model: mean_dice : 0.000120, best_dice : 0.002702
+save model to model_pth/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_tom500224/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_pretrain_epo100_bs64_lr0.0008_224_s2222/epoch_99.pth
+save model to model_pth/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_tom500224/pvt_v2_b2_EMCAD_kernel_sizes_1_3_5_dw_parallel_add_lgag_ks_3_ef2_act_mscb_relu6_loss_mutation_output_final_layer_Run1_pretrain_epo100_bs64_lr0.0008_224_s2222/epoch_99.pth

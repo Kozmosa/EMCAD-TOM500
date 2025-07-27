@@ -55,19 +55,19 @@ for split in splits:
 
         ct_number = ct_file.split('.')[0]
         if(split == 'test'):
-    	    new_ct_name = ct_number.replace('img', 'case')+'.npy.h5'
-    	    hf = h5py.File(os.path.join(save_path, new_ct_name), 'w')
-    	    hf.create_dataset('image', data=ct_array)
-    	    hf.create_dataset('label', data=seg_array)
-    	    hf.close()
-    	    continue
-    	
+            new_ct_name = ct_number.replace('img', 'case')+'.npy.h5'
+            hf = h5py.File(os.path.join(save_path, new_ct_name), 'w')
+            hf.create_dataset('image', data=ct_array)
+            hf.create_dataset('label', data=seg_array)
+            hf.close()
+            continue
+
         for s_idx in range(ct_array.shape[0]):
-    	    ct_array_s = ct_array[s_idx, :, :]
-    	    seg_array_s = seg_array[s_idx, :, :]
-    	    slice_no = "{:03d}".format(s_idx)
-    	    new_ct_name = ct_number.replace('img', 'case') + '_slice' + slice_no
-    	    np.savez(os.path.join(save_path, new_ct_name), image=ct_array_s, label=seg_array_s)
+            ct_array_s = ct_array[s_idx, :, :]
+            seg_array_s = seg_array[s_idx, :, :]
+            slice_no = "{:03d}".format(s_idx)
+            new_ct_name = ct_number.replace('img', 'case') + '_slice' + slice_no
+            np.savez(os.path.join(save_path, new_ct_name), image=ct_array_s, label=seg_array_s)
 
         print('already use {:.3f} min'.format((time() - start_time) / 60))
         print('-----------')
