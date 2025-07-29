@@ -49,7 +49,7 @@ parser.add_argument('--max_iterations', type=int,
 parser.add_argument('--max_epochs', type=int,
                     default=150, help='maximum epoch number to train')
 parser.add_argument('--batch_size', type=int,
-                    default=6, help='batch_size per gpu')
+                    default=8, help='batch_size per gpu - increased from 6 to 8 for better GPU utilization')
 parser.add_argument('--base_lr', type=float,  default=0.001,
                     help='segmentation network learning rate')
 parser.add_argument('--img_size', type=int,
@@ -60,15 +60,23 @@ parser.add_argument('--deterministic', type=int,  default=1,
 parser.add_argument('--seed', type=int,
                     default=2222, help='random seed')
 
+# 新增的优化参数
+parser.add_argument('--num_workers', type=int, default=16, 
+                    help='number of data loading workers')
+parser.add_argument('--compile_model', action='store_true', default=True,
+                    help='use torch.compile for model optimization')
+parser.add_argument('--validation_interval', type=int, default=20,
+                    help='validation interval in epochs')
+
 args = parser.parse_args()
 
 if __name__ == "__main__":
-    if not args.deterministic:
-        cudnn.benchmark = True
-        cudnn.deterministic = False
-    else:
-        cudnn.benchmark = False
-        cudnn.deterministic = True
+    # 启用优化设置
+    cudnn.benchmark = True  # 启用cudnn benchmark以优化性能
+    cudnn.deterministic = False  # 为了速度牺牲一些确定性
+    
+    # 设置环境变量优化
+    os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'max_split_size_mb:128'
     
     random.seed(args.seed)
     np.random.seed(args.seed)
@@ -102,7 +110,7 @@ if __name__ == "__main__":
         dw_mode = 'parallel'
     
     run = 1
-    args.exp = args.encoder + '_EMCAD_kernel_sizes_' + str(args.kernel_sizes) + '_dw_' + dw_mode + '_' + aggregation + '_lgag_ks_' + str(args.lgag_ks) + '_ef' + str(args.expansion_factor) + '_act_mscb_' + args.activation_mscb + '_loss_' + args.supervision + '_output_final_layer_Run'+str(run)+'_' + dataset_name + str(args.img_size)
+    args.exp = args.encoder + '_EMCAD_kernel_sizes_' + str(args.kernel_sizes) + '_dw_' + dw_mode + '_' + aggregation + '_lgag_ks_' + str(args.lgag_ks) + '_ef' + str(args.expansion_factor) + '_act_mscb_' + args.activation_mscb + '_loss_' + args.supervision + '_output_final_layer_Run'+str(run)+'_' + dataset_name + str(args.img_size) + '_optimized'
     snapshot_path = "model_pth/{}/{}".format(args.exp, args.encoder + '_EMCAD_kernel_sizes_' + str(args.kernel_sizes) + '_dw_' + dw_mode + '_' + aggregation + '_lgag_ks_' + str(args.lgag_ks) + '_ef' + str(args.expansion_factor) + '_act_mscb_' + args.activation_mscb + '_loss_' + args.supervision + '_output_final_layer_Run'+str(run))
     snapshot_path = snapshot_path.replace('[', '').replace(']', '').replace(', ', '_')
     
@@ -113,6 +121,7 @@ if __name__ == "__main__":
     snapshot_path = snapshot_path + '_lr' + str(args.base_lr) if args.base_lr != 0.0001 else snapshot_path
     snapshot_path = snapshot_path + '_'+str(args.img_size)
     snapshot_path = snapshot_path + '_s'+str(args.seed) if args.seed!=1234 else snapshot_path
+    snapshot_path = snapshot_path + '_optimized'
 
     if not os.path.exists(snapshot_path):
         os.makedirs(snapshot_path)
@@ -122,6 +131,13 @@ if __name__ == "__main__":
     model.cuda()
 
     print('Model successfully created.')
+    print(f'Optimizations enabled:')
+    print(f'  - Mixed precision training: Enabled')
+    print(f'  - Model compilation: {args.compile_model}')
+    print(f'  - Batch size: {args.batch_size}')
+    print(f'  - Data workers: {args.num_workers}')
+    print(f'  - Validation interval: {args.validation_interval} epochs')
+    print(f'  - CUDNN benchmark: {cudnn.benchmark}')
     
     trainer = {'tom500': trainer_tom500}
     trainer[dataset_name](args, model, snapshot_path)

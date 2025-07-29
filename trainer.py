@@ -59,8 +59,9 @@ def trainer_synapse(args, model, snapshot_path):
     def worker_init_fn(worker_id):
         random.seed(args.seed + worker_id)
 
+    # 优化数据加载器：增加预取和持久化工作进程
     trainloader = DataLoader(db_train, batch_size=batch_size, shuffle=True, num_workers=16, pin_memory=True,
-                             worker_init_fn=worker_init_fn)
+                             worker_init_fn=worker_init_fn, prefetch_factor=2, persistent_workers=True)
     
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     if torch.cuda.device_count() > 1 and args.n_gpu > 1:
@@ -68,12 +69,23 @@ def trainer_synapse(args, model, snapshot_path):
         model = nn.DataParallel(model)
     model.to(device)
 
+    # 启用模型编译优化 (PyTorch 2.0+)
+    try:
+        model = torch.compile(model)
+        print("Model compiled for optimization")
+    except:
+        print("Model compilation not available, continuing without compilation")
+
     model.train()
     ce_loss = CrossEntropyLoss()
     dice_loss = DiceLoss(num_classes)
 
     #optimizer = optim.SGD(model.parameters(), lr=base_lr, momentum=0.9, weight_decay=0.0001)
     optimizer = optim.AdamW(model.parameters(), lr=base_lr, weight_decay=0.0001)
+    
+    # 初始化混合精度训练
+    scaler = GradScaler()
+    
     writer = SummaryWriter(snapshot_path + '/log')
     iter_num = 0
     max_epoch = args.max_epochs
@@ -86,39 +98,43 @@ def trainer_synapse(args, model, snapshot_path):
         
         for i_batch, sampled_batch in enumerate(trainloader):
             image_batch, label_batch = sampled_batch['image'], sampled_batch['label']
-            image_batch, label_batch = image_batch.cuda(), label_batch.squeeze(1).cuda()
+            image_batch, label_batch = image_batch.cuda(non_blocking=True), label_batch.squeeze(1).cuda(non_blocking=True)
             
-            P = model(image_batch, mode='train')
+            # 使用混合精度训练
+            with autocast():
+                P = model(image_batch, mode='train')
 
-            if  not isinstance(P, list):
-                P = [P]
-            if epoch_num == 0 and i_batch == 0:
-                n_outs = len(P)
-                out_idxs = list(np.arange(n_outs)) #[0, 1, 2, 3]#, 4, 5, 6, 7]
-                if args.supervision == 'mutation':
-                    ss = [x for x in powerset(out_idxs)]
-                elif args.supervision == 'deep_supervision':
-                    ss = [[x] for x in out_idxs]
-                else:
-                    ss = [[-1]]
-                print(ss)
+                if  not isinstance(P, list):
+                    P = [P]
+                if epoch_num == 0 and i_batch == 0:
+                    n_outs = len(P)
+                    out_idxs = list(np.arange(n_outs)) #[0, 1, 2, 3]#, 4, 5, 6, 7]
+                    if args.supervision == 'mutation':
+                        ss = [x for x in powerset(out_idxs)]
+                    elif args.supervision == 'deep_supervision':
+                        ss = [[x] for x in out_idxs]
+                    else:
+                        ss = [[-1]]
+                    print(ss)
+                
+                loss = 0.0
+                w_ce, w_dice = 0.3, 0.7
+              
+                for s in ss:
+                    iout = 0.0
+                    if(s==[]):
+                        continue
+                    for idx in range(len(s)):
+                        iout += P[s[idx]]
+                    loss_ce = ce_loss(iout, label_batch[:].long())
+                    loss_dice = dice_loss(iout, label_batch, softmax=True)
+                    loss += (w_ce * loss_ce + w_dice * loss_dice)
             
-            loss = 0.0
-            w_ce, w_dice = 0.3, 0.7
-          
-            for s in ss:
-                iout = 0.0
-                if(s==[]):
-                    continue
-                for idx in range(len(s)):
-                    iout += P[s[idx]]
-                loss_ce = ce_loss(iout, label_batch[:].long())
-                loss_dice = dice_loss(iout, label_batch, softmax=True)
-                loss += (w_ce * loss_ce + w_dice * loss_dice)
-            
+            # 使用混合精度的反向传播
             optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
             #lr_ = base_lr * (1.0 - iter_num / max_iterations) ** 0.9 # we did not use this
             lr_ = base_lr
             for param_group in optimizer.param_groups:
@@ -137,8 +153,8 @@ def trainer_synapse(args, model, snapshot_path):
         save_mode_path = os.path.join(snapshot_path, 'last.pth')
         torch.save(model.state_dict(), save_mode_path)
         
-        # 每10个epoch执行一次验证
-        if (epoch_num + 1) % 10 == 0:
+        # 减少验证频率：每20个epoch执行一次验证，而不是每10个epoch
+        if (epoch_num + 1) % 20 == 0:
             performance = inference(args, model, best_performance)
             
             if(best_performance <= performance):
@@ -183,7 +199,7 @@ def trainer_tom500(args, model, snapshot_path):
         random.seed(args.seed + worker_id)
 
     trainloader = DataLoader(db_train, batch_size=batch_size, shuffle=True, num_workers=16, pin_memory=True,
-                             worker_init_fn=worker_init_fn)
+                             worker_init_fn=worker_init_fn, prefetch_factor=2, persistent_workers=True)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     if torch.cuda.device_count() > 1 and args.n_gpu > 1:
@@ -191,12 +207,23 @@ def trainer_tom500(args, model, snapshot_path):
         model = nn.DataParallel(model)
     model.to(device)
 
+    # 启用模型编译优化 (PyTorch 2.0+)
+    try:
+        model = torch.compile(model)
+        print("Model compiled for optimization")
+    except:
+        print("Model compilation not available, continuing without compilation")
+
     model.train()
     ce_loss = CrossEntropyLoss()
     dice_loss = DiceLoss(num_classes)
 
     #optimizer = optim.SGD(model.parameters(), lr=base_lr, momentum=0.9, weight_decay=0.0001)
     optimizer = optim.AdamW(model.parameters(), lr=base_lr, weight_decay=0.0001)
+    
+    # 初始化混合精度训练
+    scaler = GradScaler()
+    
     writer = SummaryWriter(snapshot_path + '/log')
     iter_num = 0
     max_epoch = args.max_epochs
@@ -209,39 +236,43 @@ def trainer_tom500(args, model, snapshot_path):
 
         for i_batch, sampled_batch in enumerate(trainloader):
             image_batch, label_batch = sampled_batch['image'], sampled_batch['label']
-            image_batch, label_batch = image_batch.cuda(), label_batch.squeeze(1).cuda()
+            image_batch, label_batch = image_batch.cuda(non_blocking=True), label_batch.squeeze(1).cuda(non_blocking=True)
 
-            P = model(image_batch, mode='train')
+            # 使用混合精度训练
+            with autocast():
+                P = model(image_batch, mode='train')
 
-            if  not isinstance(P, list):
-                P = [P]
-            if epoch_num == 0 and i_batch == 0:
-                n_outs = len(P)
-                out_idxs = list(np.arange(n_outs)) #[0, 1, 2, 3]#, 4, 5, 6, 7]
-                if args.supervision == 'mutation':
-                    ss = [x for x in powerset(out_idxs)]
-                elif args.supervision == 'deep_supervision':
-                    ss = [[x] for x in out_idxs]
-                else:
-                    ss = [[-1]]
-                print(ss)
+                if  not isinstance(P, list):
+                    P = [P]
+                if epoch_num == 0 and i_batch == 0:
+                    n_outs = len(P)
+                    out_idxs = list(np.arange(n_outs)) #[0, 1, 2, 3]#, 4, 5, 6, 7]
+                    if args.supervision == 'mutation':
+                        ss = [x for x in powerset(out_idxs)]
+                    elif args.supervision == 'deep_supervision':
+                        ss = [[x] for x in out_idxs]
+                    else:
+                        ss = [[-1]]
+                    print(ss)
 
-            loss = 0.0
-            w_ce, w_dice = 0.3, 0.7
+                loss = 0.0
+                w_ce, w_dice = 0.3, 0.7
 
-            for s in ss:
-                iout = 0.0
-                if(s==[]):
-                    continue
-                for idx in range(len(s)):
-                    iout += P[s[idx]]
-                loss_ce = ce_loss(iout, label_batch[:].long())
-                loss_dice = dice_loss(iout, label_batch, softmax=True)
-                loss += (w_ce * loss_ce + w_dice * loss_dice)
+                for s in ss:
+                    iout = 0.0
+                    if(s==[]):
+                        continue
+                    for idx in range(len(s)):
+                        iout += P[s[idx]]
+                    loss_ce = ce_loss(iout, label_batch[:].long())
+                    loss_dice = dice_loss(iout, label_batch, softmax=True)
+                    loss += (w_ce * loss_ce + w_dice * loss_dice)
 
+            # 使用混合精度的反向传播
             optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
             #lr_ = base_lr * (1.0 - iter_num / max_iterations) ** 0.9 # we did not use this
             lr_ = base_lr
             for param_group in optimizer.param_groups:
@@ -260,8 +291,8 @@ def trainer_tom500(args, model, snapshot_path):
         save_mode_path = os.path.join(snapshot_path, 'last.pth')
         torch.save(model.state_dict(), save_mode_path)
 
-        # 每10个epoch执行一次验证
-        if (epoch_num + 1) % 10 == 0:
+        # 减少验证频率：每20个epoch执行一次验证，而不是每10个epoch
+        if (epoch_num + 1) % 20 == 0:
             performance = inference(args, model, best_performance)
 
             if(best_performance <= performance):
