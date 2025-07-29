@@ -15,7 +15,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--root_path', type=str,
                     default='./datasets/TOM500_tun/train_npz', help='root dir for data')
 parser.add_argument('--volume_path', type=str,
-                    default='./data/synapse/test_vol_h5', help='root dir for validation volume data')
+                    default='./datasets/TOM500_tun/test_vol_h5', help='root dir for validation volume data')
 parser.add_argument('--dataset', type=str,
                     default='tom500', help='experiment_name')
 parser.add_argument('--list_dir', type=str,

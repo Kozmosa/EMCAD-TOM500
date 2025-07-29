@@ -291,8 +291,8 @@ def trainer_tom500(args, model, snapshot_path):
         save_mode_path = os.path.join(snapshot_path, 'last.pth')
         torch.save(model.state_dict(), save_mode_path)
 
-        # 减少验证频率：每20个epoch执行一次验证，而不是每10个epoch
-        if (epoch_num + 1) % 20 == 0:
+        # 减少验证频率：每10个epoch执行一次验证，而不是每10个epoch
+        if (epoch_num + 1) % 10 == 0:
             performance = inference(args, model, best_performance)
 
             if(best_performance <= performance):
