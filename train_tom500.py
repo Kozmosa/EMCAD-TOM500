@@ -8,20 +8,20 @@ import torch.nn as nn
 import torch.backends.cudnn as cudnn
 
 from lib.networks import EMCADNet
-from trainer import trainer_synapse
+from trainer import trainer_synapse, trainer_tom500
 
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--root_path', type=str,
-                    default='./data/synapse/train_npz', help='root dir for data')
+                    default='./datasets/TOM500_tun/train_npz', help='root dir for data')
 parser.add_argument('--volume_path', type=str,
                     default='./data/synapse/test_vol_h5', help='root dir for validation volume data')
 parser.add_argument('--dataset', type=str,
-                    default='Synapse', help='experiment_name')
+                    default='tom500', help='experiment_name')
 parser.add_argument('--list_dir', type=str,
-                    default='./lists/lists_Synapse', help='list dir')
+                    default='./lists/lists_tom500', help='list dir')
 parser.add_argument('--num_classes', type=int,
-                    default=9, help='output channel of network')
+                    default=10, help='output channel of network')
 # network related parameters
 parser.add_argument('--encoder', type=str,
                     default='pvt_v2_b2', help='Name of encoder: pvt_v2_b2, pvt_v2_b0, resnet18, resnet34 ...')
@@ -77,18 +77,11 @@ if __name__ == "__main__":
     
     dataset_name = args.dataset
     dataset_config = {
-        'Synapse': {
-            'root_path': args.root_path,
-            'volume_path': args.volume_path,
-            'list_dir': args.list_dir,
-            'num_classes': args.num_classes,
-            'z_spacing': 1,
-        },
         'tom500': {
             'root_path': args.root_path,
             'volume_path': args.volume_path,
             'list_dir': args.list_dir,
-            'num_classes': 9,
+            'num_classes': args.num_classes,
             'z_spacing': 1,
         },
     }
@@ -130,5 +123,5 @@ if __name__ == "__main__":
 
     print('Model successfully created.')
     
-    trainer = {'Synapse': trainer_synapse, 'tom500': trainer_synapse}
+    trainer = {'tom500': trainer_tom500}
     trainer[dataset_name](args, model, snapshot_path)
